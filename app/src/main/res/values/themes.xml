@@ -1,0 +1,42 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.IESESECivil" parent="Theme.MaterialComponents.Light">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryVariant">@color/blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/green</item>
+        <item name="colorSecondaryVariant">@color/green</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSecondary</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="Theme.IESESECivil">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="FontThemeRegular" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/manrope_regular</item>
+    </style>
+
+    <style name="FontThemeBold" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/manrope_bold</item>
+    </style>
+
+    <style name="FontThemeSemiBold" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+    </style>
+
+    <style name="FontThemeMedium" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/manrope_medium</item>
+    </style>
+
+    <style name="FontThemeExtraBold" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/manrope_extrabold</item>
+    </style>
+</resources>

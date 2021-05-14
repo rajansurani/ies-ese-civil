@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "192647149760",
+    "project_id": "upsc-civil",
+    "storage_bucket": "upsc-civil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192647149760:android:3d8b7f46c480e6771c9525",
+        "android_client_info": {
+          "package_name": "com.upscrks.iesesecivil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192647149760-v428su30hqoh515cgt8nb6uj7lpiahh4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.upscrks.iesesecivil",
+            "certificate_hash": "732cf8b308ccf88dea8b48a0d8f93dd940146bb8"
+          }
+        },
+        {
+          "client_id": "192647149760-fgkjruas1u6hee5c0ecubl762fa1u1mc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAa3CSHVwTkCwYGUN7a-Gmy7ZXfJaI3uoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192647149760-fgkjruas1u6hee5c0ecubl762fa1u1mc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

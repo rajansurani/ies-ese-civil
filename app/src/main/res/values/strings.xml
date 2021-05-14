@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">IES ESE Civil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="subjects">
+        <item>Environmental Engineering</item>
+        <item>Railway Engineering</item>
+        <item>Soil Mechanics</item>
+        <item>Fluid Mechanics</item>
+        <item>Open Channel Flow</item>
+        <item>Building Construction Materials</item>
+        <item>Highway Engineering</item>
+        <item>Bridge Engineering</item>
+        <item>Tunnels Engineering</item>
+        <item>Strength of Materials</item>
+        <item>Structural Analysis</item>
+        <item>Design of RCC Structure</item>
+        <item>Design of Steel Structure</item>
+        <item>Surveying</item>
+        <item>Hydrology</item>
+        <item>Irrigation</item>
+        <item>Estimation, Costing and Valuation</item>
+        <item>Blank</item>
+    </string-array>
+</resources>
