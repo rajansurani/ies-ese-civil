@@ -133,6 +133,6 @@ public class PDFViewerActivity extends BaseActivity {
                 if(!(isDestroyed() || isFinishing()))
                     displayAd();
             }
-        }, 10000);
+        }, 2000);
     }
 }

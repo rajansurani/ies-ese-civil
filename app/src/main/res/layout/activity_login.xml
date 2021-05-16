@@ -1,35 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.LoginActivity"
-    android:background="@drawable/login_bg">
+    tools:context=".Activity.LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layout"
+        android:layout_marginBottom="-30dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/login_bg" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/custom_background_gradient_white_transparent"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
 
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:orientation="vertical"
-        android:layout_margin="36dp"
-        android:layout_gravity="bottom">
+        android:paddingLeft="36dp"
+        android:paddingRight="36dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             style="@style/FontThemeBold"
-            android:text="Login"
-            android:textSize="24sp"
-            android:textColor="@color/white" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Login"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <TextView
             style="@style/FontThemeRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
             android:text="Simply login with your google account and continue practising questions"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="18dp"/>
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
 
         <com.google.android.material.button.MaterialButton
@@ -37,6 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:text="Continue with Google"
             android:textColor="@color/black"
             app:backgroundTint="@color/white"
@@ -45,17 +68,19 @@
             app:iconPadding="10dp"
             app:iconSize="16dp"
             app:iconTintMode="multiply"
-            android:layout_marginBottom="30dp"/>
+            app:strokeColor="@color/grey"
+            app:strokeWidth="1dp" />
 
         <TextView
             android:id="@+id/skipLogin"
+            style="@style/FontThemeRegular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/FontThemeRegular"
+            android:layout_marginBottom="36dp"
             android:text="Skip Login"
-            android:textColor="@color/white"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 
-</ScrollView>
+</RelativeLayout>

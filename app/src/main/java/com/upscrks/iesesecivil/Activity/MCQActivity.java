@@ -129,7 +129,7 @@ public class MCQActivity extends BaseActivity {
                     Query.Direction.ASCENDING,
                     null, mcqs -> {
                         dismissMCQLoading();
-                        if (mcqs.size() > 0) {
+                        if (mcqs.size() > 0 && mcqs.size() !=1) {
                             currentMcqCount = 0;
                             mMCQList = mcqs;
                             setupQuestion();
