@@ -3,6 +3,7 @@ package com.upscrks.iesesecivil.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,14 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.InstallStateUpdatedListener;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
@@ -43,6 +52,8 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
+    private static final int APP_UPDATE_REQUEST_CODE = 100;
+
     @BindView(R.id.tvSubHeading)
     TextView tvSubHeading;
 
@@ -54,6 +65,7 @@ public class MainActivity extends BaseActivity {
 
     ReviewInfo reviewInfo;
     ReviewManager manager;
+    AppUpdateManager appUpdateManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +85,7 @@ public class MainActivity extends BaseActivity {
         preCacheReviewObject();
 
         initializeAdMob();
+        checkUpdate();
 
         //CSVUtils.addMCQs(this);
 
@@ -214,4 +227,56 @@ public class MainActivity extends BaseActivity {
 
         }
     }
+
+    private void checkUpdate() {
+        appUpdateManager = AppUpdateManagerFactory.create(this);
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+        Log.d("App Update", "checkUpdate: Check Started");
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+                InstallStateUpdatedListener listener = state -> {
+                    if (state.installStatus() == InstallStatus.DOWNLOADED) {
+                        popupSnackbarForCompleteUpdate();
+                    }
+                };
+                appUpdateManager.registerListener(listener);
+                Log.d("App Update", "checkUpdate: Update Available");
+                try {
+                    appUpdateManager.startUpdateFlowForResult(
+                            appUpdateInfo,
+                            AppUpdateType.FLEXIBLE,
+                            this,
+                            APP_UPDATE_REQUEST_CODE);
+                } catch (IntentSender.SendIntentException e) {
+                    e.printStackTrace();
+                }
+            }
+            Log.d("App Update", "checkUpdate: Update not Available");
+        });
+    }
+
+    private void popupSnackbarForCompleteUpdate() {
+        Snackbar snackbar =
+                Snackbar.make(
+                        findViewById(R.id.main_layout),
+                        "An update has just been downloaded.",
+                        Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("RESTART", view -> appUpdateManager.completeUpdate());
+        snackbar.setActionTextColor(
+                getResources().getColor(R.color.darkBlue));
+        snackbar.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == APP_UPDATE_REQUEST_CODE) {
+            if (resultCode != RESULT_OK) {
+                Log.d("App Update", "onActivityResult: Update Failed");
+            } else if (requestCode == APP_UPDATE_REQUEST_CODE)
+                Log.d("Add Update", "onActivityResult: Update Successful");
+        }
+    }
+
 }
