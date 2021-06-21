@@ -17,6 +17,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
 import com.google.android.play.core.tasks.OnCompleteListener;
 import com.google.android.play.core.tasks.Task;
 import com.google.firebase.firestore.Query;
@@ -49,6 +52,9 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.viewpager)
     ViewPager2 viewPager2;
 
+    ReviewInfo reviewInfo;
+    ReviewManager manager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +70,10 @@ public class MainActivity extends BaseActivity {
                 .into((ImageView) findViewById(R.id.avatar));
 
         OnClickButtonHome();
+        preCacheReviewObject();
 
         initializeAdMob();
+
         //CSVUtils.addMCQs(this);
 
         /*Map<String, Object> filters = new HashMap<>();
@@ -178,5 +186,32 @@ public class MainActivity extends BaseActivity {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
+    }
+
+    public void preCacheReviewObject() {
+        manager = ReviewManagerFactory.create(this);
+        com.google.android.play.core.tasks.Task<ReviewInfo> request = manager.requestReviewFlow();
+        request.addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                // We can get the ReviewInfo object
+                reviewInfo = task.getResult();
+                Log.d("Review", "preCacheReviewObject: ReviewObject Generated");
+            } else {
+                // There was some problem, continue regardless of the result.
+                reviewInfo = null;
+                Log.d("Review", "preCacheReviewObject: ReviewObject Error");
+            }
+        });
+    }
+
+    public void askForRating() {
+        try {
+            com.google.android.play.core.tasks.Task<Void> flow = manager.launchReviewFlow(this, reviewInfo);
+            flow.addOnCompleteListener(task -> {
+                Helper.setBooleanSharedPreference("askedForRating",true, MainActivity.this);
+            });
+        } catch (Exception e) {
+
+        }
     }
 }
