@@ -5,8 +5,11 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,7 +98,6 @@ public class MCQActivity extends BaseActivity {
     String subject, key;
     int selectedOption =0;
     List<MCQ> mMCQList = new ArrayList<>();
-    ProgressDialog fetchMcqDialog;
     int currentMcqCount = 0;
     MCQ currentMcq;
     boolean previousYear = false, optionSelectionDisabled = false;
@@ -105,6 +107,10 @@ public class MCQActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mcq);
         ButterKnife.bind(this);
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.transparent));
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         subject = getIntent().getStringExtra("subject");
         previousYear = getIntent().getBooleanExtra("previousYear", false);
@@ -135,21 +141,29 @@ public class MCQActivity extends BaseActivity {
                             setupQuestion();
                         }
                         else{
-                            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                            builder.setTitle("Practice Questions")
-                            .setMessage("Looks like we are out of questions!");
-                            builder.setPositiveButton("OK", (dialog,v)->{
-                               dialog.dismiss();
-                               finish();
-                            });
-                            builder.create().show();
+                            outOfQuestionsDialog();
                         }
                     });
         });
     }
 
+    private void outOfQuestionsDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Practice Questions")
+                .setMessage("Looks like we are out of questions!")
+                .setCancelable(false);
+        builder.setPositiveButton("OK", (dialog,v)->{
+            dialog.dismiss();
+            finish();
+        });
+        builder.create().show();
+    }
+
     private void setupQuestion() {
-        if (currentMcqCount == mMCQList.size() - 1) {
+        if(mMCQList.isEmpty()){
+            outOfQuestionsDialog();
+        }
+        else if (currentMcqCount == mMCQList.size() - 1) {
             fetchMCQ();
         } else {
             optionSelectionDisabled = false;
@@ -418,20 +432,20 @@ public class MCQActivity extends BaseActivity {
             tvOption4.setTextAppearance(R.style.FontThemeRegular);
         }
         option1.setBackground(getResources().getDrawable(R.drawable.background_unselected));
-        tvOpText1.setTextColor(getResources().getColor(R.color.grey));
-        tvOption1.setTextColor(getResources().getColor(R.color.grey));
+        tvOpText1.setTextColor(getResources().getColor(R.color.darkGrey));
+        tvOption1.setTextColor(getResources().getColor(R.color.darkGrey));
 
         option2.setBackground(getResources().getDrawable(R.drawable.background_unselected));
-        tvOpText2.setTextColor(getResources().getColor(R.color.grey));
-        tvOption2.setTextColor(getResources().getColor(R.color.grey));
+        tvOpText2.setTextColor(getResources().getColor(R.color.darkGrey));
+        tvOption2.setTextColor(getResources().getColor(R.color.darkGrey));
 
         option3.setBackground(getResources().getDrawable(R.drawable.background_unselected));
-        tvOpText3.setTextColor(getResources().getColor(R.color.grey));
-        tvOption3.setTextColor(getResources().getColor(R.color.grey));
+        tvOpText3.setTextColor(getResources().getColor(R.color.darkGrey));
+        tvOption3.setTextColor(getResources().getColor(R.color.darkGrey));
 
         option4.setBackground(getResources().getDrawable(R.drawable.background_unselected));
-        tvOpText4.setTextColor(getResources().getColor(R.color.grey));
-        tvOption4.setTextColor(getResources().getColor(R.color.grey));
+        tvOpText4.setTextColor(getResources().getColor(R.color.darkGrey));
+        tvOption4.setTextColor(getResources().getColor(R.color.darkGrey));
     }
 
     @OnClick(R.id.back)

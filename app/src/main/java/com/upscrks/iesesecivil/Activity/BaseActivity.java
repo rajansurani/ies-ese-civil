@@ -1,6 +1,9 @@
 package com.upscrks.iesesecivil.Activity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
@@ -12,6 +15,7 @@ import com.upscrks.iesesecivil.Application.Constants;
 import com.upscrks.iesesecivil.Application.Helper;
 import com.upscrks.iesesecivil.BuildConfig;
 import com.upscrks.iesesecivil.Database.DataAccess;
+import com.upscrks.iesesecivil.R;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +33,10 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.white));
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         mDataAccess = DataAccess.getInstance(getApplicationContext());
 

@@ -1,13 +1,5 @@
 package com.upscrks.iesesecivil.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,7 +20,10 @@ import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.upscrks.iesesecivil.Application.Helper;
 import com.upscrks.iesesecivil.R;
 
-import java.util.HashMap;
+import androidx.annotation.NonNull;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ProfileActivity extends BaseActivity {
 
@@ -50,23 +45,31 @@ public class ProfileActivity extends BaseActivity {
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
 
-        Glide.with(ProfileActivity.this)
-                .load(mAuth.getCurrentUser().getPhotoUrl())
-                .placeholder(R.drawable.avatar_big)
-                .apply(new RequestOptions().circleCrop())
-                .into((ImageView) findViewById(R.id.ivProfile));
-
-        mDataAccess.getCurrentUser(false, user->{
-            if(!Helper.IsNullOrEmpty(user.getName()))
+        mDataAccess.getCurrentUser(false, user -> {
+            if (!Helper.IsNullOrEmpty(user.getName()))
                 tvName.setText(user.getName());
             else {
                 tvName.setText(mAuth.getCurrentUser().getDisplayName());
             }
-            if(!Helper.IsNullOrEmpty(user.getEmail()))
+            if (!Helper.IsNullOrEmpty(user.getEmail()))
                 tvEmail.setText(user.getEmail());
             else
                 tvEmail.setText("Anonymous");
-            tvQuestionCount.setText(""+user.getQuestionsSolved());
+
+            if (mAuth.getCurrentUser() != null)
+                Glide.with(ProfileActivity.this)
+                        .load(mAuth.getCurrentUser().getPhotoUrl())
+                        .placeholder(R.drawable.avatar_big)
+                        .apply(new RequestOptions().circleCrop())
+                        .into((ImageView) findViewById(R.id.ivProfile));
+            else{
+                Glide.with(ProfileActivity.this)
+                        .load(R.drawable.avatar_big)
+                        .apply(new RequestOptions().circleCrop())
+                        .into((ImageView) findViewById(R.id.ivProfile));
+            }
+
+            tvQuestionCount.setText("" + user.getQuestionsSolved());
         });
         preCacheReviewObject();
 
@@ -89,13 +92,13 @@ public class ProfileActivity extends BaseActivity {
     }
 
     @OnClick(R.id.layoutSolve)
-    public void OnClickSolveQuestions(){
+    public void OnClickSolveQuestions() {
         startActivity(new Intent(this, SubjectActivity.class));
         finish();
     }
 
     @OnClick(R.id.layoutSignOut)
-    public void OnClickSignOut(){
+    public void OnClickSignOut() {
         mAuth.signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -104,12 +107,12 @@ public class ProfileActivity extends BaseActivity {
     }
 
     @OnClick(R.id.back)
-    public void OnClickBack(){
+    public void OnClickBack() {
         finish();
     }
 
     @OnClick(R.id.btnShare)
-    public void OnClickShare(){
+    public void OnClickShare() {
         DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
                 .setLink(Uri.parse("https://play.google.com/store/apps/details?id=com.upscrks.iesesecivil"))
                 .setDomainUriPrefix("https://iesesecivil.page.link")
@@ -138,7 +141,7 @@ public class ProfileActivity extends BaseActivity {
     }
 
     @OnClick(R.id.layoutRate)
-    public void OnClickRate(){
+    public void OnClickRate() {
         try {
             com.google.android.play.core.tasks.Task<Void> flow = manager.launchReviewFlow(this, reviewInfo);
             flow.addOnCompleteListener(task -> {

@@ -50,13 +50,15 @@
             android:text="----"/>
 
         <LinearLayout
+            android:id="@+id/btnBuy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:background="@drawable/custom_background_white_75r_blue_border"
             android:gravity="center_vertical"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="12dp"
+            android:clickable="true">
 
             <ImageView
                 android:layout_width="wrap_content"

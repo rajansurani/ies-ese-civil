@@ -5,6 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -63,7 +66,19 @@ public class MainActivity extends BaseActivity {
         OnClickButtonHome();
 
         initializeAdMob();
-        //CSVUtils.addBooks(this);
+        //CSVUtils.addMCQs(this);
+
+        /*Map<String, Object> filters = new HashMap<>();
+        filters.put("subject", "Geotech and Foundation Engineering");
+        filters.put("prevYear", false);
+        mDataAccess.getMCQ(filters, "createdOn", 200,
+                0,
+                Query.Direction.ASCENDING,
+                null, mcqs -> {
+                    for(MCQ mcq: mcqs){
+                        mDataAccess.deleteMcq(mcq.getQuestionId());
+                    }
+                });*/
     }
 
     private void activeIcon(String active) {
@@ -146,7 +161,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void sendRegistrationIdToServer() {
-
         new Thread(() -> {
             Map<String, Object> map = new HashMap<>();
             map.put("fcm_id", FirebaseInstanceId.getInstance().getToken());

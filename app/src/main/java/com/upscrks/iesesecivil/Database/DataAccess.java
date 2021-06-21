@@ -324,7 +324,7 @@ public class DataAccess {
 
     public void getCsv(OnCompleteSingleListener<String> onCompleteSingleListener) {
         final long ONE_MB = 1024 * 1024;
-        mStorage.getReference("books.csv").getBytes(ONE_MB).addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<byte[]>() {
+        mStorage.getReference("questions.csv").getBytes(ONE_MB).addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<byte[]>() {
             @Override
             public void onComplete(@NonNull Task<byte[]> task) {
                 if (task.isSuccessful()) {
@@ -333,5 +333,9 @@ public class DataAccess {
                 }
             }
         });
+    }
+
+    public void deleteMcq(String id){
+        mFirestore.collection("mcq").document(id).delete();
     }
 }

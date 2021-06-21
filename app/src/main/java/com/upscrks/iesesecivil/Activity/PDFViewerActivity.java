@@ -2,21 +2,14 @@ package com.upscrks.iesesecivil.Activity;
 
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.barteksc.pdfviewer.PDFView;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
 import com.upscrks.iesesecivil.Application.Helper;
 import com.upscrks.iesesecivil.R;
 import com.upscrks.iesesecivil.Utils.AdsUtils;
@@ -66,8 +59,9 @@ public class PDFViewerActivity extends BaseActivity {
     }
 
     private void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing())
-            mProgressDialog.dismiss();
+        if (!(isDestroyed() || isFinishing()))
+            if (mProgressDialog != null && mProgressDialog.isShowing())
+                mProgressDialog.dismiss();
     }
 
     private void loadPDF() {
@@ -78,11 +72,11 @@ public class PDFViewerActivity extends BaseActivity {
         }
     }
 
-    private void downloadPDF(){
+    private void downloadPDF() {
         showProgressDialog();
         mDataAccess.getNotesPdf(getIntent().getStringExtra("pdfUrl"), pdf -> {
             String filePath = FilesUtils.savePdf(getIntent().getStringExtra("title"), pdf, this);
-            if(filePath !=null){
+            if (filePath != null) {
                 Toast.makeText(this, "File Saved", Toast.LENGTH_SHORT).show();
                 loadPDFFromStorage();
             }
@@ -120,19 +114,11 @@ public class PDFViewerActivity extends BaseActivity {
     }
 
     @OnClick(R.id.back)
-    public void OnClickBack(){
+    public void OnClickBack() {
         finish();
     }
 
-    private void displayAd(){
+    private void displayAd() {
         AdsUtils.loadBannerAd(PDFViewerActivity.this);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(!(isDestroyed() || isFinishing()))
-                    displayAd();
-            }
-        }, 2000);
     }
 }

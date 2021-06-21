@@ -51,7 +51,7 @@ public class CSVUtils {
                     });
                     Log.d("CSV Utils", question.toString() +" id= "+questionId);
                     questionId++;
-                    Thread.sleep(300);
+                    Thread.sleep(100);
                 }
                 Log.d("CSV List", "addMcq: Number of Questions =  " + list.size());
             } catch (IOException | InterruptedException e) {

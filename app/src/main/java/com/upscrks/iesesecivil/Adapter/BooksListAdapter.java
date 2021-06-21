@@ -43,7 +43,8 @@ public class BooksListAdapter extends RecyclerView.Adapter<BooksListAdapter.MyVi
         Books book = mBooks.get(position);
         holder.tvAuthor.setText(book.getBookAuthor());
         holder.tvBookTitle.setText(book.getBookTitle());
-        holder.layout.setOnClickListener(v->{
+        holder.btnBuy.setBackground(mContext.getDrawable(R.drawable.ripple_blue200));
+        holder.btnBuy.setOnClickListener(v->{
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(book.getLink()));
             mContext.startActivity(intent);
@@ -57,7 +58,7 @@ public class BooksListAdapter extends RecyclerView.Adapter<BooksListAdapter.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout layout;
+        LinearLayout btnBuy;
         TextView tvBookTitle, tvAuthor;
         ImageView ivBook;
 
@@ -65,7 +66,7 @@ public class BooksListAdapter extends RecyclerView.Adapter<BooksListAdapter.MyVi
             super(v);
             tvBookTitle = v.findViewById(R.id.tvBookName);
             tvAuthor = v.findViewById(R.id.tvAuthor);
-            layout = v.findViewById(R.id.layout);
+            btnBuy = v.findViewById(R.id.btnBuy);
             ivBook = v.findViewById(R.id.ivBook);
         }
 
