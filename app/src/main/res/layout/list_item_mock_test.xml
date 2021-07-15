@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_background_lightblue_circle"
+        android:padding="16dp"
+        android:src="@drawable/ic_test"
+        app:tint="@color/blue" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvDate"
+            style="@style/FontThemeSemiBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Question"
+            android:textColor="@color/darkGrey"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvTimeTaken"
+            style="@style/FontThemeRegular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:drawableStart="@drawable/ic_clock"
+            android:drawablePadding="6dp"
+            android:drawableTint="@color/grey"
+            android:text="24 min"
+            android:textColor="@color/grey"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvMarks"
+            style="@style/FontThemeBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="21/30"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/btnReviewAnswers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/FontThemeSemiBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Review "
+                android:textColor="@color/green"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                android:src="@drawable/arrow_right"
+                app:tint="@color/green"
+                android:layout_marginRight="5dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

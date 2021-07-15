@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -11,9 +12,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -22,18 +21,21 @@ import com.upscrks.iesesecivil.Application.Helper;
 import com.upscrks.iesesecivil.Database.Model.Books;
 import com.upscrks.iesesecivil.Database.Model.MCQ;
 import com.upscrks.iesesecivil.Database.Model.MCQData;
+import com.upscrks.iesesecivil.Database.Model.MockData;
+import com.upscrks.iesesecivil.Database.Model.MockTest;
 import com.upscrks.iesesecivil.Database.Model.Notes;
 import com.upscrks.iesesecivil.Database.Model.User;
 import com.upscrks.iesesecivil.Utils.OnCompleteListener;
 import com.upscrks.iesesecivil.Utils.OnCompleteSingleListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public class DataAccess {
 
@@ -271,7 +273,7 @@ public class DataAccess {
         });
     }
 
-    public void getBooksSubjectList(OnCompleteListener<String> onCompleteListener){
+    public void getBooksSubjectList(OnCompleteListener<String> onCompleteListener) {
         mDatabase.child("books_subject").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -291,7 +293,7 @@ public class DataAccess {
         });
     }
 
-    public void getNotesList(OnCompleteListener<Notes> listener){
+    public void getNotesList(OnCompleteListener<Notes> listener) {
         Query query = mFirestore.collection("notes")
                 .orderBy("title");
 
@@ -309,14 +311,14 @@ public class DataAccess {
         });
     }
 
-    public void getNotesPdf(String url, OnCompleteSingleListener<byte[]> listener){
-        final long HUNDRED_MB = 1024 * 1024 *100;
+    public void getNotesPdf(String url, OnCompleteSingleListener<byte[]> listener) {
+        final long HUNDRED_MB = 1024 * 1024 * 100;
         mStorage.getReferenceFromUrl(url).getBytes(HUNDRED_MB).addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<byte[]>() {
             @Override
             public void onComplete(@NonNull Task<byte[]> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     listener.OnComplete(task.getResult());
-                }else
+                } else
                     listener.OnComplete(null);
             }
         });
@@ -335,7 +337,153 @@ public class DataAccess {
         });
     }
 
-    public void deleteMcq(String id){
+    public void deleteMcq(String id) {
         mFirestore.collection("mcq").document(id).delete();
+    }
+
+    public void createNewMockTest(int numberOfQuestions, OnCompleteSingleListener<MockTest> onCompleteSingleListener) {
+        mFirestore.collection("mcq").orderBy("questionNumber", Query.Direction.DESCENDING).limit(1).get().addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                int questionNumber = task.getResult().getDocuments().get(0).toObject(MCQ.class).getQuestionNumber();
+                List<Integer> questionsList = new ArrayList<>();
+                MockTest mockTest = new MockTest();
+                mockTest.setMockTestId(Helper.md5(new Date().toString()));
+                mockTest.setCreatedOn(new Timestamp(new Date()));
+                while (questionsList.size() != numberOfQuestions) {
+                    int random = new Random().nextInt(questionNumber);
+                    if (!questionsList.contains(random)) {
+                        questionsList.add(random);
+                    }
+                }
+                mockTest.setQuestionNumbers(questionsList);
+                mockTest.setTotalTimeAllowed(questionsList.size());
+                mockTest.setTotalQuestions(questionsList.size());
+
+                for (int number : mockTest.getQuestionNumbers()) {
+                    MockData data = new MockData();
+                    data.setQuestionNumber(number);
+                    data.setMockId(mockTest.getMockTestId());
+                    data.setUserAnswer(0);
+                    data.setCorrect(false);
+                    addMockTestActivity(data, onComplete->{});
+                }
+                mFirestore.collection("mock").document(mAuth.getCurrentUser().getUid()).collection("mockTest").document(mockTest.getMockTestId()).set(mockTest);
+                onCompleteSingleListener.OnComplete(mockTest);
+                logEvent("FIRESTORE_WRITE", "newMock");
+            }
+        });
+    }
+
+    public void updateMockTest(MockTest mockTest, OnCompleteSingleListener<Boolean> onCompleteSingleListener) {
+        mFirestore.collection("mock").document(mAuth.getCurrentUser().getUid()).collection("mockTest").document(mockTest.getMockTestId()).set(mockTest).addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                onCompleteSingleListener.OnComplete(task.isSuccessful());
+
+                logEvent("FIRESTORE_WRITE", "updateMock");
+            }
+        });
+    }
+
+    public void addMockTestActivity(MockData data, OnCompleteSingleListener<Boolean> onCompleteSingleListener) {
+        if (Helper.IsNullOrEmpty(data.getId())) {
+            data.setId(data.getMockId() + "_" + data.getQuestionNumber());
+        }
+        mFirestore.collection("mock")
+                .document(mAuth.getCurrentUser().getUid())
+                .collection("mockTestActivity")
+                .document(data.getId())
+                .set(data)
+                .addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful())
+                            onCompleteSingleListener.OnComplete(true);
+                        else
+                            onCompleteSingleListener.OnComplete(false);
+                        logEvent("FIRESTORE_WRITE", "mockTestActivity");
+                    }
+                });
+    }
+
+    public void getMockQuestions(MockTest mockTest, OnCompleteListener<MCQ> onCompleteListener) {
+        List<MCQ> mcqs = new ArrayList<>();
+        mFirestore.collection("mcq").whereIn("questionNumber", mockTest.getQuestionNumbers().subList(0,10)).get().addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for (DocumentSnapshot document : task.getResult().getDocuments()) {
+                    MCQ mcq = document.toObject(MCQ.class);
+                    mcq.setQuestionId(document.getId());
+                    mcqs.add(mcq);
+                    logEvent("FIRESTORE_READ", "MCQ");
+                }
+                mFirestore.collection("mcq").whereIn("questionNumber", mockTest.getQuestionNumbers().subList(10,20)).get().addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (DocumentSnapshot document : task.getResult().getDocuments()) {
+                            MCQ mcq = document.toObject(MCQ.class);
+                            mcq.setQuestionId(document.getId());
+                            mcqs.add(mcq);
+                            logEvent("FIRESTORE_READ", "MCQ");
+                        }
+                        mFirestore.collection("mcq").whereIn("questionNumber", mockTest.getQuestionNumbers().subList(20,30)).get().addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                for (DocumentSnapshot document : task.getResult().getDocuments()) {
+                                    MCQ mcq = document.toObject(MCQ.class);
+                                    mcq.setQuestionId(document.getId());
+                                    mcqs.add(mcq);
+                                    logEvent("FIRESTORE_READ", "MCQ");
+                                }
+                                onCompleteListener.OnComplete(mcqs);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    public void fetchMockTests(OnCompleteListener<MockTest> onCompleteListener) {
+        mFirestore.collection("mock").document(mAuth.getCurrentUser().getUid()).collection("mockTest").orderBy("createdOn", Query.Direction.DESCENDING).get().addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<MockTest> mockTests = new ArrayList<>();
+                for (DocumentSnapshot document : task.getResult().getDocuments()) {
+                    mockTests.add(document.toObject(MockTest.class));
+                }
+                onCompleteListener.OnComplete(mockTests);
+            }
+        });
+    }
+
+    public void fetchMockTestById(String id,OnCompleteSingleListener<MockTest> onCompleteListener) {
+        mFirestore.collection("mock").document(mAuth.getCurrentUser().getUid()).collection("mockTest").document(id).get().addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful())
+                    onCompleteListener.OnComplete(task.getResult().toObject(MockTest.class));
+                else
+                    onCompleteListener.OnComplete(null);
+            }
+        });
+    }
+
+    public void getMockData(MockTest mockTest, OnCompleteListener<MockData> onCompleteListener){
+        Query query = mFirestore.collection("mock").document(mAuth.getCurrentUser().getUid()).collection("mockTestActivity").whereEqualTo("mockId",mockTest.getMockTestId());
+        query.get().addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<MockData> mockData =new ArrayList<>();
+                if(task.isSuccessful())
+                {
+                    for(DocumentSnapshot snapshot : task.getResult().getDocuments()){
+                        mockData.add(snapshot.toObject(MockData.class));
+                    }
+                }
+                onCompleteListener.OnComplete(mockData);
+            }
+        });
     }
 }

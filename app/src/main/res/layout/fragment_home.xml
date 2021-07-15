@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.HomeFragment">
 
     <LinearLayout
@@ -12,84 +12,84 @@
         android:orientation="vertical">
 
         <TextView
+            style="@style/FontThemeRegular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="Questions"
-            style="@style/FontThemeRegular"
-            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"/>
+            android:text="Questions"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <LinearLayout
                 android:id="@+id/subjectCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/custom_background_gradient_blue_12r"
-                android:orientation="vertical"
+                android:layout_marginRight="6dp"
                 android:layout_weight="1"
-                android:layout_marginRight="6dp">
+                android:background="@drawable/custom_background_gradient_blue_12r"
+                android:orientation="vertical">
 
                 <TextView
+                    style="@style/FontThemeBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="Subject Wise"
-                    style="@style/FontThemeBold"
-                    android:textSize="16sp"
-                    android:paddingTop="16dp"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp"/>
+                    android:paddingTop="16dp"
+                    android:paddingRight="16dp"
+                    android:text="Subject Wise"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
                 <TextView
+                    style="@style/FontThemeRegular"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/white"
-                    android:text="Practice questions according to Subjects"
-                    style="@style/FontThemeRegular"
-                    android:textSize="14sp"
+                    android:layout_weight="1"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
                     android:paddingTop="5dp"
-                    android:layout_weight="1"/>
+                    android:paddingRight="16dp"
+                    android:text="Practice questions according to Subjects"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="bottom">
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/arrow_right"
-                        android:background="@drawable/custom_background_white_75r"
-                        android:padding="5dp"
-                        android:scaleY="1.5"
-                        android:scaleX="1.5"
                         android:layout_marginLeft="16dp"
                         android:layout_marginBottom="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        android:background="@drawable/custom_background_white_75r"
+                        android:padding="5dp"
+                        android:scaleX="1.5"
+                        android:scaleY="1.5"
+                        android:src="@drawable/arrow_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/subjects"
-                        android:layout_gravity="end"
-                        android:layout_alignParentBottom="true"
                         android:layout_alignParentEnd="true"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="end"
+                        android:src="@drawable/subjects"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -99,64 +99,64 @@
                 android:id="@+id/previousYearCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/custom_background_gradient_pruple_12r"
-                android:orientation="vertical"
+                android:layout_marginLeft="6dp"
                 android:layout_weight="1"
-                android:layout_marginLeft="6dp">
+                android:background="@drawable/custom_background_gradient_pruple_12r"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="Previous Year"
                     style="@style/FontThemeBold"
-                    android:textSize="16sp"
-                    android:paddingTop="16dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp" />
-
-                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="Previous years questions for your practice"
-                    style="@style/FontThemeRegular"
-                    android:textSize="14sp"
                     android:paddingLeft="16dp"
+                    android:paddingTop="16dp"
                     android:paddingRight="16dp"
-                    android:paddingTop="5dp"/>
+                    android:text="Previous Year"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    style="@style/FontThemeRegular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="16dp"
+                    android:text="Previous years questions for your practice"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_weight="1"
                     android:gravity="bottom"
-                    android:layout_weight="1">
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/arrow_right"
-                        android:background="@drawable/custom_background_white_75r"
-                        android:padding="5dp"
-                        android:scaleY="1.5"
-                        android:scaleX="1.5"
+                        android:layout_alignParentStart="true"
                         android:layout_marginLeft="16dp"
                         android:layout_marginBottom="20dp"
-                        android:layout_alignParentStart="true"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        android:background="@drawable/custom_background_white_75r"
+                        android:padding="5dp"
+                        android:scaleX="1.5"
+                        android:scaleY="1.5"
+                        android:src="@drawable/arrow_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/previous_year_paper"
-                        android:layout_weight="1"
-                        android:layout_gravity="end"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        android:layout_gravity="end"
+                        android:layout_weight="1"
+                        android:src="@drawable/previous_year_paper"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -165,43 +165,44 @@
         </LinearLayout>
 
         <TextView
+            style="@style/FontThemeRegular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="Tests"
-            style="@style/FontThemeRegular"
-            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"/>
+            android:text="Tests"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mockTestCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="20dp"
             android:elevation="10dp"
-            app:strokeColor="#C4C4C4"
-            app:strokeWidth="1dp"
             app:cardCornerRadius="20dp"
-            android:layout_marginBottom="20dp">
+            app:strokeColor="#C4C4C4"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
+                    style="@style/FontThemeBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="Mock Test"
-                    style="@style/FontThemeBold"
-                    android:textSize="16sp"
-                    android:paddingTop="16dp"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp" />
+                    android:paddingTop="16dp"
+                    android:paddingRight="16dp"
+                    android:text="Mock Test"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -211,44 +212,57 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <TextView
+                            style="@style/FontThemeRegular"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/grey"
-                            android:text="Take a Mock test as if you are going to appear for the actual exam"
-                            style="@style/FontThemeRegular"
-                            android:textSize="14sp"
                             android:paddingLeft="16dp"
-                            android:paddingTop="5dp"/>
+                            android:paddingTop="5dp"
+                            android:text="Take a Mock test as if you are going to appear for the actual exam"
+                            android:textColor="@color/grey"
+                            android:textSize="14sp" />
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:orientation="horizontal"
                             android:background="@drawable/custom_background_lightgreen_75r"
-                            android:text="Coming Soon"
-                            android:layout_marginLeft="16dp"
                             android:layout_marginTop="20dp"
                             android:layout_marginBottom="20dp"
-                            android:drawableStart="@drawable/ic_lock"
-                            android:drawableTint="@color/teal"
-                            android:gravity="center"
-                            android:drawablePadding="4dp"
-                            android:padding="8dp"
-                            android:textColor="@color/teal"
-                            style="@style/FontThemeSemiBold"/>
+                            android:layout_marginLeft="16dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_test"
+                                android:layout_marginLeft="10dp"
+                                android:scaleY="0.7"
+                                app:tint="@color/darkGreen"
+                                android:scaleX="0.7"/>
+
+                            <TextView
+                                style="@style/FontThemeSemiBold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:padding="8dp"
+                                android:text="Prepare Now"
+                                android:textColor="@color/teal"
+                                android:layout_marginRight="10dp"/>
+                        </LinearLayout>
                     </LinearLayout>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:src="@drawable/mock_test"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
                         android:layout_gravity="bottom"
                         android:scaleType="fitEnd"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"/>
+                        android:src="@drawable/mock_test" />
 
                 </LinearLayout>
 

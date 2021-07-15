@@ -10,8 +10,8 @@ android {
         applicationId "com.upscrks.iesesecivil"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 3
-        versionName "1.2"
+        versionCode 5
+        versionName "1.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.opencsv:opencsv:4.6'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.4'
 
     def lottieVersion = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"

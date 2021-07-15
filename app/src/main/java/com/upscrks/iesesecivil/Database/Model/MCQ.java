@@ -14,6 +14,7 @@ public class MCQ {
     String previousYear;
     long createdOn;
     boolean prevYear;
+    int questionNumber;
 
     public MCQ() {
     }
@@ -112,5 +113,13 @@ public class MCQ {
 
     public void setPrevYear(boolean prevYear) {
         this.prevYear = prevYear;
+    }
+
+    public int getQuestionNumber() {
+        return questionNumber;
+    }
+
+    public void setQuestionNumber(int questionNumber) {
+        this.questionNumber = questionNumber;
     }
 }

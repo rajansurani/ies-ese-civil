@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tvQuestionNumber"
+        style="@style/FontThemeBold"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:text="1"
+        android:background="@drawable/custom_background_white20_circle"
+        android:textColor="@color/white50"
+        android:textSize="14sp"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/ivQuestionNumber"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_check"
+        app:tint="@color/blue"
+        android:scaleType="centerInside"
+        android:background="@drawable/custom_background_white20_circle"/>
+
+    <View
+        android:id="@+id/viewLine"
+        android:layout_width="30dp"
+        android:layout_height="3dp"
+        android:background="@color/white40"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+</LinearLayout>

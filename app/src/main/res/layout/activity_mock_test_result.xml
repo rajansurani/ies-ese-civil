@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="14dp"
+    android:orientation="vertical"
+    tools:context=".Activity.MockTestResultActivity">
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:padding="5dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:src="@drawable/ic_close"
+        app:tint="@color/blue" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:lottie_rawRes="@raw/mock_test_success"
+        app:lottie_autoPlay="true"
+        app:lottie_repeatMode="restart"
+        app:lottie_repeatCount="@android:integer/config_longAnimTime"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="fitCenter"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="20dp"
+        app:strokeColor="#C4C4C4"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="12dp"
+            android:gravity="center">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <pl.pawelkleczkowski.customgauge.CustomGauge
+                    android:id="@+id/gaugeMarks"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    app:gaugeEndValue="5"
+                    app:gaugePointStartColor="@color/green"
+                    app:gaugePointEndColor="@color/green"
+                    app:gaugeStartAngle="270"
+                    app:gaugeStartValue="0"
+                    app:gaugeStrokeCap="ROUND"
+                    app:gaugeStrokeColor="@color/lightGrey"
+                    app:gaugeStrokeWidth="8dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerInParent="true"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvMarksObtained"
+                        style="@style/FontThemeExtraBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/tvTotalMarks"
+                        style="@style/FontThemeRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="out of 30"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    style="@style/FontThemeBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Whoa!"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    style="@style/FontThemeRegular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Congrats, Well Going"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp" />
+
+
+                <LinearLayout
+                    android:id="@+id/btnReviewAnswers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="14dp">
+
+                    <TextView
+                        style="@style/FontThemeSemiBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Review Answers"
+                        android:textColor="@color/green"
+                        android:textSize="16sp"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_right"
+                        app:tint="@color/green"
+                        android:scaleX="1.3"
+                        android:scaleY="1.3"
+                        android:layout_marginLeft="10dp"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

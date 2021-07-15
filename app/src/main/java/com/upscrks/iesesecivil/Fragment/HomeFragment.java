@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.upscrks.iesesecivil.Activity.MainActivity;
+import com.upscrks.iesesecivil.Activity.MockActivity;
 import com.upscrks.iesesecivil.Activity.SubjectActivity;
 import com.upscrks.iesesecivil.Application.Helper;
 import com.upscrks.iesesecivil.R;
 
 import androidx.fragment.app.Fragment;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -44,9 +46,10 @@ public class HomeFragment extends BaseFragment {
 
         if (!Helper.getBooleanSharedPreference("askedForRating", getContext())) {
             mDataAccess.getCurrentUser(false, user -> {
-                if (user.getQuestionsSolved() > 10) {
-                    ((MainActivity) getActivity()).askForRating();
-                }
+                if (user != null)
+                    if (user.getQuestionsSolved() > 10) {
+                        ((MainActivity) getActivity()).askForRating();
+                    }
             });
         }
     }
@@ -63,5 +66,11 @@ public class HomeFragment extends BaseFragment {
         intent.putExtra("previousYear", true);
         startActivity(intent);
         mDataAccess.logEvent("NAVIGATION", "Home to Previous Year");
+    }
+
+    @OnClick(R.id.mockTestCard)
+    public void OnClickMockTestCard() {
+        startActivity(new Intent(getContext(), MockActivity.class));
+        mDataAccess.logEvent("NAVIGATION", "Home to Mock");
     }
 }

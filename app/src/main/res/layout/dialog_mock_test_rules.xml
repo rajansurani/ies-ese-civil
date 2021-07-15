@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:padding="5dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:src="@drawable/ic_close"
+        app:tint="@color/blue" />
+
+    <TextView
+        style="@style/FontThemeBold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mock Test Rules"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="3dp"
+        android:background="@drawable/custom_background_blue_75r"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/FontThemeExtraBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:background="@drawable/custom_background_green_circle"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"/>
+
+        <TextView
+            style="@style/FontThemeRegular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You will get total of 30 minutes"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/FontThemeExtraBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:background="@drawable/custom_background_green_circle"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"/>
+
+        <TextView
+            style="@style/FontThemeRegular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total 30 Questions to Attempt"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/FontThemeExtraBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:background="@drawable/custom_background_green_circle"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"/>
+
+        <TextView
+            style="@style/FontThemeRegular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You’ll get result and actual answers at the end of the test"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            style="@style/FontThemeExtraBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:background="@drawable/custom_background_green_circle"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"/>
+
+        <TextView
+            style="@style/FontThemeRegular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You cannot exit the test once started"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            style="@style/FontThemeExtraBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:background="@drawable/custom_background_green_circle"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"/>
+
+        <TextView
+            style="@style/FontThemeRegular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="If you exit, Test will auto Submit"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/rules_illustration"
+        android:layout_weight="1"
+        android:padding="20dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStart"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="10dp"
+        app:cornerRadius="25dp"
+        android:text="Start Mock Test"
+        style="@style/FontThemeBold"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:padding="10dp"/>
+
+</LinearLayout>

@@ -122,6 +122,7 @@ public class MCQActivity extends BaseActivity {
             key = key + "_previousYear";
         tvSubject.setText(subject);
         fetchMCQ();
+        showAd();
     }
 
     private void fetchMCQ() {
@@ -156,7 +157,8 @@ public class MCQActivity extends BaseActivity {
             dialog.dismiss();
             finish();
         });
-        builder.create().show();
+        if(!(isDestroyed() || isFinishing()))
+            builder.create().show();
     }
 
     private void setupQuestion() {
@@ -174,7 +176,6 @@ public class MCQActivity extends BaseActivity {
             tvOption2.setText(currentMcq.getOption2());
             tvOption3.setText(currentMcq.getOption3());
             tvOption4.setText(currentMcq.getOption4());
-            showAd();
         }
     }
 

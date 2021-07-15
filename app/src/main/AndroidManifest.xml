@@ -4,8 +4,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".Application.UPSCApplication"
@@ -15,14 +15,22 @@
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".Activity.PDFViewerActivity"></activity>
-        <activity android:name=".Activity.ProfileActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.MCQActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.SubjectActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.SplashActivity"
+        <activity android:name=".Activity.MockTestReviewActivity"></activity>
+        <activity android:name=".Activity.MockTestResultActivity" />
+        <activity android:name=".Activity.MockTestAttemptActivity" />
+        <activity android:name=".Activity.MockActivity" />
+        <activity android:name=".Activity.PDFViewerActivity" />
+        <activity
+            android:name=".Activity.ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.MCQActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.SubjectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,10 +38,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.MainActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.MainActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".Service.NotificationService"
@@ -46,7 +56,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-4865426979147468~4441406687"/>
+            android:value="ca-app-pub-4865426979147468~4441406687" />
     </application>
 
 </manifest>
