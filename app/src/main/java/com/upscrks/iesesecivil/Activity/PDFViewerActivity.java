@@ -4,9 +4,11 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.google.android.gms.ads.AdView;
@@ -15,8 +17,6 @@ import com.upscrks.iesesecivil.R;
 import com.upscrks.iesesecivil.Utils.AdsUtils;
 import com.upscrks.iesesecivil.Utils.FilesUtils;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -119,6 +119,7 @@ public class PDFViewerActivity extends BaseActivity {
     }
 
     private void displayAd() {
-        AdsUtils.loadBannerAd(PDFViewerActivity.this);
+        if (mFirebaseRemoteConfig.getBoolean("displayAds"))
+            AdsUtils.loadBannerAd(PDFViewerActivity.this);
     }
 }

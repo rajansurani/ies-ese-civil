@@ -1,12 +1,5 @@
 package com.upscrks.iesesecivil.Activity;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.upscrks.iesesecivil.Adapter.QuestionNumberListAdapter;
@@ -32,6 +28,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MockTestReviewActivity extends BaseActivity {
 
@@ -199,16 +199,18 @@ public class MockTestReviewActivity extends BaseActivity {
     }
 
     private void setupQuestion() {
-        clearSelection();
-        currentMcq = mMCQList.get(currentMcqCount);
-        tvQuestion.setText(currentMcq.getQuestion());
-        tvOption1.setText(currentMcq.getOption1());
-        tvOption2.setText(currentMcq.getOption2());
-        tvOption3.setText(currentMcq.getOption3());
-        tvOption4.setText(currentMcq.getOption4());
-        showCorrectAnswer();
-        questionNumberRecycler.scrollToPosition(currentMcqCount);
-        setupNextPrevButtons();
+        if(!mMCQList.isEmpty()) {
+            clearSelection();
+            currentMcq = mMCQList.get(currentMcqCount);
+            tvQuestion.setText(currentMcq.getQuestion());
+            tvOption1.setText(currentMcq.getOption1());
+            tvOption2.setText(currentMcq.getOption2());
+            tvOption3.setText(currentMcq.getOption3());
+            tvOption4.setText(currentMcq.getOption4());
+            showCorrectAnswer();
+            questionNumberRecycler.scrollToPosition(currentMcqCount);
+            setupNextPrevButtons();
+        }
     }
 
     private void setupNextPrevButtons() {
@@ -371,6 +373,7 @@ public class MockTestReviewActivity extends BaseActivity {
     }
 
     private void showAd() {
-        AdsUtils.loadBannerAd(MockTestReviewActivity.this);
+        if (mFirebaseRemoteConfig.getBoolean("displayAds"))
+            AdsUtils.loadBannerAd(MockTestReviewActivity.this);
     }
 }

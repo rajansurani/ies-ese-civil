@@ -7,11 +7,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.storage.FirebaseStorage;
 import com.upscrks.iesesecivil.Application.Constants;
 import com.upscrks.iesesecivil.Application.Helper;
 import com.upscrks.iesesecivil.BuildConfig;
 import com.upscrks.iesesecivil.Database.DataAccess;
+import com.upscrks.iesesecivil.R;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -24,6 +26,7 @@ public class BaseFragment extends Fragment {
     protected FirebaseAnalytics mFirebaseAnalytics;
     protected FirebaseStorage mStorage;
     protected FirebaseCrashlytics mFirebaseCrash;
+    protected FirebaseRemoteConfig mFirebaseRemoteConfig;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,5 +50,9 @@ public class BaseFragment extends Fragment {
         } else {
             mFirebaseCrash.setCrashlyticsCollectionEnabled(true);
         }
+
+
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
     }
 }

@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.google.firebase:firebase-core'
     implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-config'
 
     implementation 'com.google.android.gms:play-services-ads:20.1.0'
 

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -12,11 +11,12 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.firebase.Timestamp;
 import com.upscrks.iesesecivil.Adapter.QuestionNumberListAdapter;
 import com.upscrks.iesesecivil.Application.Helper;
@@ -26,13 +26,10 @@ import com.upscrks.iesesecivil.Database.Model.MockTest;
 import com.upscrks.iesesecivil.R;
 import com.upscrks.iesesecivil.Utils.AdsUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -140,7 +137,7 @@ public class MockTestAttemptActivity extends BaseActivity {
                 }
                 dismissMCQLoading();
                 setupQuestionNumberRecycler();
-                currentMcqCount =0;
+                currentMcqCount = 0;
                 setupQuestion();
                 startTimer();
             });
@@ -148,9 +145,9 @@ public class MockTestAttemptActivity extends BaseActivity {
     }
 
     @OnClick(R.id.btnPrevious)
-    public void OnClickPrevious(){
+    public void OnClickPrevious() {
         evaluateAnswer();
-        if(currentMcqCount!=0)
+        if (currentMcqCount != 0)
             currentMcqCount--;
         mQuestionNumberListAdapter.setCurrentMcq(currentMcqCount);
         mQuestionNumberListAdapter.notifyDataSetChanged();
@@ -158,15 +155,15 @@ public class MockTestAttemptActivity extends BaseActivity {
     }
 
     @OnClick(R.id.btnSubmit)
-    public void OnClickSubmit(){
+    public void OnClickSubmit() {
         evaluateAnswer();
 
-        if(currentMcqCount != mMockTest.getTotalQuestions() -1) {
+        if (currentMcqCount != mMockTest.getTotalQuestions() - 1) {
             currentMcqCount++;
             mQuestionNumberListAdapter.setCurrentMcq(currentMcqCount);
             mQuestionNumberListAdapter.notifyDataSetChanged();
             setupQuestion();
-        }else {
+        } else {
             timer.cancel();
             int totalCorrect = 0, totalAnswered = 0;
             for (MockData data : mMockData) {
@@ -193,20 +190,22 @@ public class MockTestAttemptActivity extends BaseActivity {
         }
     }
 
-    private void evaluateAnswer(){
-        mMockData.get(currentMcqCount).setUserAnswer(selectedOption);
-        if(selectedOption == currentMcq.getCorrectAnswer())
-            mMockData.get(currentMcqCount).setCorrect(true);
-        else
-            mMockData.get(currentMcqCount).setCorrect(false);
-        mMockData.get(currentMcqCount).setAnsweredOn(new Timestamp(new Date()));
+    private void evaluateAnswer() {
+        if(!mMockData.isEmpty()) {
+            mMockData.get(currentMcqCount).setUserAnswer(selectedOption);
+            if (selectedOption == currentMcq.getCorrectAnswer())
+                mMockData.get(currentMcqCount).setCorrect(true);
+            else
+                mMockData.get(currentMcqCount).setCorrect(false);
+            mMockData.get(currentMcqCount).setAnsweredOn(new Timestamp(new Date()));
+        }
     }
 
-    private void setupQuestionNumberRecycler(){
+    private void setupQuestionNumberRecycler() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         questionNumberRecycler.setLayoutManager(layoutManager);
-        mQuestionNumberListAdapter = new QuestionNumberListAdapter(mMockData,this,true, new QuestionNumberListAdapter.OnQuestionClicked() {
+        mQuestionNumberListAdapter = new QuestionNumberListAdapter(mMockData, this, true, new QuestionNumberListAdapter.OnQuestionClicked() {
             @Override
             public void OnClick(int questionNumber) {
                 evaluateAnswer();
@@ -249,26 +248,26 @@ public class MockTestAttemptActivity extends BaseActivity {
         mcqLayout.setVisibility(View.VISIBLE);
     }
 
-    private void setupButtons(){
-        if(currentMcqCount == mMockTest.getTotalQuestions() -1)
+    private void setupButtons() {
+        if (currentMcqCount == mMockTest.getTotalQuestions() - 1)
             btnSubmit.setText("Submit Answers");
         else
             btnSubmit.setText("Next Question");
     }
 
-    private void startTimer(){
+    private void startTimer() {
         timerProgress.setMax(100);
-        timer = new CountDownTimer(mMockTest.getTotalTimeAllowed()*60000, 1000) {
+        timer = new CountDownTimer(mMockTest.getTotalTimeAllowed() * 60000, 1000) {
             @Override
             public void onTick(long l) {
-                tvTime.setText(l/60000 +" min "+(l%60000)/1000+" sec left");
-                timeRemaining = (int) (l/60000);
-                timerProgress.setProgress((int) (l*100/(mMockTest.getTotalTimeAllowed()*60000)));
+                tvTime.setText(l / 60000 + " min " + (l % 60000) / 1000 + " sec left");
+                timeRemaining = (int) (l / 60000);
+                timerProgress.setProgress((int) (l * 100 / (mMockTest.getTotalTimeAllowed() * 60000)));
             }
 
             @Override
             public void onFinish() {
-                if(!(isDestroyed() || isFinishing())){
+                if (!(isDestroyed() || isFinishing())) {
                     OnClickSubmit();
                 }
             }
@@ -386,6 +385,7 @@ public class MockTestAttemptActivity extends BaseActivity {
     }
 
     private void showAd() {
-        AdsUtils.loadBannerAd(MockTestAttemptActivity.this);
+        if (mFirebaseRemoteConfig.getBoolean("displayAds"))
+            AdsUtils.loadBannerAd(MockTestAttemptActivity.this);
     }
 }

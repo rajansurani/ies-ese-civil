@@ -102,6 +102,13 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <LinearLayout
+                        android:id="@+id/banner_ad_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="20dp"/>
+
                     <TextView
                         android:id="@+id/tvQuestion"
                         style="@style/FontThemeSemiBold"
@@ -279,12 +286,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/banner_ad_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"/>
         </LinearLayout>
 
     </LinearLayout>

@@ -455,6 +455,7 @@ public class MCQActivity extends BaseActivity {
     }
 
     private void showAd(){
-        AdsUtils.loadBannerAd(MCQActivity.this);
+        if(mFirebaseRemoteConfig.getBoolean("displayAds"))
+            AdsUtils.loadBannerAd(MCQActivity.this);
     }
 }

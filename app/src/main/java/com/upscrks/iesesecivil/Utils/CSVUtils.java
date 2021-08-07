@@ -24,7 +24,7 @@ public class CSVUtils {
                 CSVReader csvReader = new CSVReader(new StringReader(csvData));
                 String[] nextLine;
                 List<MCQ> list = new ArrayList<>();
-                int questionId = 1;
+                int questionId = 1139;
                 while (true) {
                     if (!((nextLine = csvReader.readNext()) != null)) break;
                     // nextLine[] is an array of values from the line
@@ -44,8 +44,9 @@ public class CSVUtils {
                     else if ("D".equals(nextLine[5]))
                         question.setCorrectAnswer(4);
                     question.setSubject(nextLine[6]);
-                    question.setPrevYear(true);
+                    question.setPrevYear(false);
                     question.setCreatedOn(Calendar.getInstance().getTimeInMillis());
+                    question.setQuestionNumber(questionId);
                     list.add(question);
                     mDataAccess.addMCQ(question,  onComplete -> {
                     });

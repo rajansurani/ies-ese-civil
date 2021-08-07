@@ -12,12 +12,14 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
@@ -29,7 +31,6 @@ import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
-import com.google.android.play.core.tasks.OnCompleteListener;
 import com.google.android.play.core.tasks.Task;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -87,6 +88,8 @@ public class MainActivity extends BaseActivity {
         initializeAdMob();
         checkUpdate();
 
+        updateFirebaseRemoteConfigValues();
+
         //CSVUtils.addMCQs(this);
 
         /*Map<String, Object> filters = new HashMap<>();
@@ -100,6 +103,10 @@ public class MainActivity extends BaseActivity {
                         mDataAccess.deleteMcq(mcq.getQuestionId());
                     }
                 });*/
+    }
+
+    private void updateFirebaseRemoteConfigValues(){
+        mFirebaseRemoteConfig.fetchAndActivate();
     }
 
     private void activeIcon(String active) {

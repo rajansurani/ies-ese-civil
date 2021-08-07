@@ -10,6 +10,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.firebase.storage.FirebaseStorage;
 import com.upscrks.iesesecivil.Application.Constants;
 import com.upscrks.iesesecivil.Application.Helper;
@@ -29,6 +31,7 @@ public class BaseActivity extends AppCompatActivity {
     protected FirebaseAnalytics mFirebaseAnalytics;
     protected FirebaseStorage mStorage;
     protected FirebaseCrashlytics mFirebaseCrash;
+    protected FirebaseRemoteConfig mFirebaseRemoteConfig;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,10 +54,13 @@ public class BaseActivity extends AppCompatActivity {
         }
         mFirebaseCrash = FirebaseCrashlytics.getInstance();
         mFirebaseCrash.setUserId(mAuth.getCurrentUser() != null ? mAuth.getCurrentUser().getUid() : "");
-        if (BuildConfig.DEBUG) {
-            mFirebaseCrash.setCrashlyticsCollectionEnabled(false);
-        } else {
-            mFirebaseCrash.setCrashlyticsCollectionEnabled(true);
-        }
+        mFirebaseCrash.setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
+        /*FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(100)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);*/
+
     }
 }
