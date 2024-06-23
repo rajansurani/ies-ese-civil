@@ -2,6 +2,7 @@ package com.upscrks.iesesecivil.Database;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
@@ -74,6 +75,7 @@ public class DataAccess {
             ValueEventListener valueEventListner = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.d("TAG", "onDataChange: d"+dataSnapshot.getValue().toString());
                     User user = dataSnapshot.getValue(User.class);
                     logEvent("RDB_READ", "USERS");
                     if (user != null) {

@@ -3,15 +3,23 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    signingConfigs {
+        release {
+            storeFile file('/Users/rajansurani/Desktop/Projects/ies-ese-civil/key-new.jks')
+            storePassword 'rajan1432001'
+            keyAlias 'rajansurani'
+            keyPassword 'rajan1432001'
+        }
+    }
+
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.upscrks.iesesecivil"
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 6
-        versionName "1.5"
+        minSdkVersion 23
+        targetSdkVersion 34
+        versionCode 8
+        versionName "1.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,45 +34,47 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.upscrks.iesesecivil'
 }
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    implementation 'com.android.volley:volley:1.2.0'
-    implementation 'com.jakewharton:butterknife:10.2.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    implementation 'com.android.volley:volley:1.2.1'
+    implementation 'com.jakewharton:butterknife:10.2.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-invites:17.0.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
-    implementation 'com.google.android.play:core:1.10.0'
-    implementation 'com.opencsv:opencsv:4.6'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+    implementation 'com.google.android.play:review:2.0.1'
+    implementation 'com.google.android.play:app-update:2.1.0'
+    implementation 'com.opencsv:opencsv:5.9'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.4'
 
-    def lottieVersion = "3.4.0"
+    def lottieVersion = '6.4.1'
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    implementation platform('com.google.firebase:firebase-bom:27.0.0')
+    implementation 'com.google.android.gms:play-services-auth:21.2.0'
+    implementation platform('com.google.firebase:firebase-bom:33.1.1')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-storage'
-    implementation 'com.google.firebase:firebase-core'
+    implementation 'com.google.firebase:firebase-core:21.1.1'
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-config'
 
-    implementation 'com.google.android.gms:play-services-ads:20.1.0'
+    implementation 'com.google.android.gms:play-services-ads:23.1.0'
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.jakewharton.butterknife'

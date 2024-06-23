@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 import com.upscrks.iesesecivil.Application.Helper;
 import com.upscrks.iesesecivil.Database.DataAccess;
 import com.upscrks.iesesecivil.Database.Model.Books;
@@ -26,7 +27,8 @@ public class CSVUtils {
                 List<MCQ> list = new ArrayList<>();
                 int questionId = 1139;
                 while (true) {
-                    if (!((nextLine = csvReader.readNext()) != null)) break;
+
+                    if ((nextLine = csvReader.readNext()) == null) break;
                     // nextLine[] is an array of values from the line
                     MCQ question = new MCQ();
                     //question.setQuestionId(Helper.md5(Helper.currentDate()));
@@ -55,7 +57,7 @@ public class CSVUtils {
                     Thread.sleep(100);
                 }
                 Log.d("CSV List", "addMcq: Number of Questions =  " + list.size());
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException | InterruptedException | CsvValidationException e) {
                 e.printStackTrace();
             }
         });
@@ -84,7 +86,7 @@ public class CSVUtils {
                     Thread.sleep(300);
                 }
                 Log.d("CSV List", "addMcq: Number of Books =  " + list.size());
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException | InterruptedException | CsvValidationException e) {
                 e.printStackTrace();
             }
         });

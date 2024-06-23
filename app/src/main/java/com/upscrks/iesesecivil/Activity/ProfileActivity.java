@@ -77,7 +77,7 @@ public class ProfileActivity extends BaseActivity {
 
     public void preCacheReviewObject() {
         manager = ReviewManagerFactory.create(this);
-        com.google.android.play.core.tasks.Task<ReviewInfo> request = manager.requestReviewFlow();
+        Task<ReviewInfo> request = manager.requestReviewFlow();
         request.addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 // We can get the ReviewInfo object
@@ -143,7 +143,7 @@ public class ProfileActivity extends BaseActivity {
     @OnClick(R.id.layoutRate)
     public void OnClickRate() {
         try {
-            com.google.android.play.core.tasks.Task<Void> flow = manager.launchReviewFlow(this, reviewInfo);
+            Task<Void> flow = manager.launchReviewFlow(this, reviewInfo);
             flow.addOnCompleteListener(task -> {
             });
         } catch (Exception e) {

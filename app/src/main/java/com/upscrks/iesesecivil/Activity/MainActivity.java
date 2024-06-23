@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,8 +16,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
@@ -31,21 +28,15 @@ import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
-import com.google.android.play.core.tasks.Task;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.installations.FirebaseInstallations;
 import com.upscrks.iesesecivil.Adapter.HomeViewPagerAdapter;
 import com.upscrks.iesesecivil.Application.Helper;
 import com.upscrks.iesesecivil.BuildConfig;
-import com.upscrks.iesesecivil.Database.Model.MCQ;
 import com.upscrks.iesesecivil.R;
-import com.upscrks.iesesecivil.Utils.CSVUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -190,13 +181,17 @@ public class MainActivity extends BaseActivity {
 
     private void sendRegistrationIdToServer() {
         new Thread(() -> {
-            Map<String, Object> map = new HashMap<>();
-            map.put("fcm_id", FirebaseInstanceId.getInstance().getToken());
-            map.put("app_version", BuildConfig.VERSION_CODE);
-            map.put("last_usage", Helper.currentDateTime());
+            try{
+                Map<String, Object> map = new HashMap<>();
+                map.put("fcm_id", FirebaseInstallations.getInstance().getToken(false).getResult().getToken());
+                map.put("app_version", BuildConfig.VERSION_CODE);
+                map.put("last_usage", Helper.currentDateTime());
 
-            mDataAccess.updateUser(map, complete -> {
-            });
+                mDataAccess.updateUser(map, complete -> {
+                });
+            }catch(Exception exception){
+
+            }
         }).start();
     }
 
@@ -210,7 +205,7 @@ public class MainActivity extends BaseActivity {
 
     public void preCacheReviewObject() {
         manager = ReviewManagerFactory.create(this);
-        com.google.android.play.core.tasks.Task<ReviewInfo> request = manager.requestReviewFlow();
+        Task<ReviewInfo> request = manager.requestReviewFlow();
         request.addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 // We can get the ReviewInfo object
@@ -226,7 +221,7 @@ public class MainActivity extends BaseActivity {
 
     public void askForRating() {
         try {
-            com.google.android.play.core.tasks.Task<Void> flow = manager.launchReviewFlow(this, reviewInfo);
+            Task<Void> flow = manager.launchReviewFlow(this, reviewInfo);
             flow.addOnCompleteListener(task -> {
                 Helper.setBooleanSharedPreference("askedForRating",true, MainActivity.this);
             });

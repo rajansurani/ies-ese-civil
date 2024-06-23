@@ -136,7 +136,7 @@ public class MCQActivity extends BaseActivity {
                     Query.Direction.ASCENDING,
                     null, mcqs -> {
                         dismissMCQLoading();
-                        if (mcqs.size() > 0 && mcqs.size() !=1) {
+                        if (!mcqs.isEmpty() && mcqs.size() !=1) {
                             currentMcqCount = 0;
                             mMCQList = mcqs;
                             setupQuestion();
@@ -218,18 +218,14 @@ public class MCQActivity extends BaseActivity {
             case 3: {
                 option3.setBackground(getResources().getDrawable(R.drawable.background_selected));
                 tvOpText3.setTextColor(getResources().getColor(R.color.white));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    tvOption3.setTextAppearance(R.style.FontThemeBold);
-                }
+                tvOption3.setTextAppearance(R.style.FontThemeBold);
                 tvOption3.setTextColor(getResources().getColor(R.color.white));
             }
             break;
             case 4: {
                 option4.setBackground(getResources().getDrawable(R.drawable.background_selected));
                 tvOpText4.setTextColor(getResources().getColor(R.color.white));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    tvOption4.setTextAppearance(R.style.FontThemeBold);
-                }
+                tvOption4.setTextAppearance(R.style.FontThemeBold);
                 tvOption4.setTextColor(getResources().getColor(R.color.white));
             }
             break;
